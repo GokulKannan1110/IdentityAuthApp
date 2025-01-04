@@ -2,12 +2,14 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-app.MapGet("/", () => "Hello World!");
+var app = builder.Build();
+
+app.MapControllers();
 
 app.Run();
